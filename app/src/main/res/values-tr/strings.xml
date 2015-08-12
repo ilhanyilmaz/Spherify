@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Spherify</string>
+    <string name="folder_name">spherified</string>
+    <string name="seekbar_smooth">Yumuşat</string>
+
+    <string name="menu_item_delete">Sil</string>
+    <string name="menu_item_share">Paylaş</string>
+    <string name="menu_item_new">Yeni Yarat</string>
+    <string name="menu_item_help">Yardım</string>
+
+    <string name="share_caption">Spherify\'la yaratılmıştır! #spherify</string>
+
+    <string name="title_activity_display">Spherified</string>
+    <string name="title_activity_gallery">Galeri</string>
+    <string name="title_activity_help">Yardım</string>
+
+    <string name="spherifying_text">Yuvarlatılıyor! Lütfen bekleyiniz&#8230;</string>
+    <string name="edit_activity_tip1">İpucu 1: Yukarı ve aşağıda bulunan perdeleri sürükleyerek, odaklanmak istediğiniz alanı ayarlayın.\n</string>
+    <string name="edit_activity_tip2">İpucu 2: Yumuşatma ayarıyla sol ve sağ kenarlar arasında yumuşak bir geçiş sağlayabilirsiniz.\n</string>
+
+    <string name="display_activity_checkBox">Kenarları kes</string>
+    <string name="display_activity_tip1">\İpucu: Görüntüyü iki parmağınızla döndürebilirsiniz.\n</string>
+
+    <string name="help_activity_html">
+        \n\n\n
+        <big>Dikkat edilmesi gereken konular:</big>\n\n
+        Başlamadan önce, galerinizde yuvarlatmaya uygun bir fotoğraf emin olun.\n\n
+        <b>Yuvarlatmaya uygun bir fotoğraf nasıl olmalı?</b>\n\n
+        1-\u0009Herhangi bir panoramik fotoğraf\n
+        2-\u0009360<sup><small>o</small></sup> çekilmiş fotoğraf\n
+        \n\n
+        Kusursuz bir <b>Spherify</b> görüntüsü için, fotoğrafınızda şu şekilde olmalı:\n\n
+        1-\u0009Ufuk çizgileri aynı yükseklikte başlayıp bitmeli,\n
+        2-\u0009Zeminin dokusu homojen olmalı,\n
+        3-\u0009<u>Fotoğrafınızın </u> sol ve sağ kenarları birbiriyle örtüşmeli.
+    </string>
+    <string name="transition_name">DisplayImageView</string>
+</resources>

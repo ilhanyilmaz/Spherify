@@ -1,0 +1,8 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+    <dimen name="edit_image_height">320dp</dimen>
+    <dimen name="edit_activity_image_mask_width">320dp</dimen>
+    <dimen name="edit_activity_image_mask_height">32dp</dimen>
+</resources>

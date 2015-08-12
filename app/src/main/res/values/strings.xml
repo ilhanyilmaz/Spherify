@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Spherify</string>
+    <string name="folder_name">spherified</string>
+    <string name="seekbar_smooth">Smooth</string>
+
+    <string name="menu_item_delete">Delete</string>
+    <string name="menu_item_share">Share</string>
+    <string name="menu_item_new">Create New</string>
+    <string name="menu_item_help">Help</string>
+
+    <string name="share_caption">Created using Spherify! #spherify</string>
+
+    <string name="title_activity_display">Spherified</string>
+    <string name="title_activity_gallery">Gallery</string>
+    <string name="title_activity_help">HowTo</string>
+
+    <string name="spherifying_text">Spherifying! Please wait&#8230;</string>
+    <string name="edit_activity_tip1">Tip 1: Adjust mask layers by dragging them to top and bottom of the interest points.\n</string>
+    <string name="edit_activity_tip2">Tip 2: Smooth to soften transition between left and right side of the image.\n</string>
+
+    <string name="display_activity_checkBox">Crop Edges</string>
+    <string name="display_activity_tip1">\nTip 1: Rotate image to adjust orientation.\n</string>
+
+    <string name="help_activity_html">
+        \n\n\n
+        <big>Tips:</big>\n\n
+        Before you begin, make sure you already have a spherifiable photo.\n\n
+        <b>A spherifiable photo can be:</b>\n\n
+        1-\u0009Any panoramic photo\n
+        2-\u0009360<sup><small>o</small></sup> photo\n
+        \n\n
+        For a perfect <b>Spherify</b> image, your image should have:\n\n
+        1-\u0009Level horizontal lines (<i>horizon, skyline, etc.</i>),\n
+        2-\u0009A homogeneous texture for the terrain,\n
+        3-\u0009<u>Seamless</u> left and right edges.
+    </string>
+    <string name="transition_name">DisplayImageView</string>
+</resources>
