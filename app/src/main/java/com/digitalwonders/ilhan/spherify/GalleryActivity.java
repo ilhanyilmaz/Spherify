@@ -60,21 +60,22 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // inside your activity (if you did not enable transitions in your theme)
-            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            //getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
             // set an exit transition
-            getWindow().setExitTransition(new Explode());
-        }*/
+            //getWindow().setExitTransition(new Explode());
+            mFab = (FloatingActionButton) findViewById(R.id.fab);
+            mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectAnImage();
+                }
+            });
+        }
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectAnImage();
-            }
-        });
+
 
         /*// Check if we're running on Android 5.0 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

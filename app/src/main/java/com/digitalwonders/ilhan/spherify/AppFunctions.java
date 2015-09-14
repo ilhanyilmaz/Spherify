@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Toast;
@@ -15,7 +16,13 @@ public class AppFunctions {
 
     }
     public static String getRealPathFromURI(Uri contentUri, ContentResolver contentResolver) {
+
         String res = null;
+        if(contentUri.getEncodedPath().startsWith("/storage")) {
+            res = contentUri.getEncodedPath();
+            return res;
+        }
+
         String[] proj = { MediaStore.Images.Media.DATA };
         Cursor cursor = contentResolver.query(contentUri, proj, null, null, null);
         if(cursor.moveToFirst()){;
@@ -66,10 +73,45 @@ public class AppFunctions {
         }
 
     }
+    private static boolean isLandscape(BitmapFactory.Options options) {
+        return (options.outWidth>=options.outHeight);
+    }
+    private static boolean isWithinLimits(BitmapFactory.Options options) {
+        return (options.outWidth<=4096 && options.outHeight<=4096);
+    }
+
+    public static Bitmap flipVertically(Bitmap sourceBitmap) {
+        Bitmap rotatedBitmap;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(180);
+        rotatedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+        return rotatedBitmap;
+    }
+
+    private static Bitmap fixRotation(Bitmap sourceBitmap) {
+        Bitmap rotatedBitmap;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        rotatedBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+        return rotatedBitmap;
+    }
+
+    private static Bitmap fixSize(Bitmap sourceBitmap, BitmapFactory.Options options) {
+        Bitmap scaledBitmap;
+
+        float scale = 4096.0f / ((options.outWidth>options.outHeight)?options.outWidth:options.outHeight);
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        scaledBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.getWidth(), sourceBitmap.getHeight(), matrix, true);
+        return scaledBitmap;
+    }
+
     public static Bitmap decodeSampledBitmap(String path, int reqWidth, int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap bitmap;
+
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(path, options);
 
@@ -78,7 +120,12 @@ public class AppFunctions {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, options);
+        bitmap = BitmapFactory.decodeFile(path, options);
+        if (!isLandscape(options))
+            bitmap = fixRotation(bitmap);
+        if(!isWithinLimits(options))
+            bitmap = fixSize(bitmap, options);
+        return bitmap;
     }
 
     public static int calculateInSampleSize(
@@ -86,6 +133,7 @@ public class AppFunctions {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
+
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {

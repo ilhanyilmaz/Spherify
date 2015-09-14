@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.util.Log;
 
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
@@ -31,7 +30,7 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
 
     private float topMargin;
     private float footMargin;
-    private int smootValue;
+    private int smoothValue;
 
     private double scale;
     private int offset;
@@ -51,7 +50,7 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
         footMargin = _footMargin;
         //Log.i("Spherify", "top: " + (topMargin));
         //Log.i("Spherify", "foot: " + (footMargin));
-        smootValue = _smoothValue;
+        smoothValue = _smoothValue;
 
         activity = spherifyActivity;
 
@@ -214,14 +213,15 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
     }
 
     private void seamlessEdges(Mat image) {
-        double smoothRange = smootValue;
+        int imageHeight = image.height();
+        int imageWidth = image.width();
+        double smoothRange = smoothValue * (4096f/imageWidth);
         double smoothRangeHalf = smoothRange/2;
         double pixel1[];
         double pixel2[];
         double tempPixel[] = new double[4];
         tempPixel[3] = 255;
-        int imageHeight = image.height();
-        int imageWidth = image.width();
+
         int i,j;
         for(i=0; i<smoothRangeHalf; i++) {
             for(j=0; j<imageHeight; j++ ) {

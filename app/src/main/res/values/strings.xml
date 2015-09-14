@@ -6,6 +6,7 @@
     <string name="menu_item_delete">Delete</string>
     <string name="menu_item_share">Share</string>
     <string name="menu_item_new">Create New</string>
+    <string name="menu_item_rotate">Flip Vertically</string>
     <string name="menu_item_help">Help</string>
 
     <string name="share_caption">Created using Spherify! #spherify</string>
@@ -19,7 +20,8 @@
     <string name="edit_activity_tip2">Tip 2: Smooth to soften transition between left and right side of the image.\n</string>
 
     <string name="display_activity_checkBox">Crop Edges</string>
-    <string name="display_activity_tip1">\nTip 1: Rotate image to adjust orientation.\n</string>
+    <string name="display_activity_tip1">\nTip 1: Rotate image to adjust orientation.</string>
+    <string name="display_activity_tip2">Tip 2: Use #Spherify hashtag while sharing to get a repost from Spherify.</string>
 
     <string name="help_activity_html">
         \n\n\n

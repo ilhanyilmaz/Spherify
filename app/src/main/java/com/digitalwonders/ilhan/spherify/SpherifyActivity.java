@@ -61,6 +61,7 @@ public class SpherifyActivity extends Activity {
         float topMargin;
         float footMargin;
         String imagePath;
+        boolean flipVertical;
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -69,15 +70,15 @@ public class SpherifyActivity extends Activity {
         topMargin = intent.getFloatExtra(AppConstant.SPHERIFY_TOP_MARGIN, 0);
         footMargin = intent.getFloatExtra(AppConstant.SPHERIFY_FOOT_MARGIN, 0);
         smoothValue = intent.getIntExtra(AppConstant.SPHERIFY_SMOOTH_VALUE, 0);
-
-        //Log.i("Spherify", "top: " + (topMargin));
-        //Log.i("Spherify", "foot: " + (footMargin));
+        flipVertical = intent.getBooleanExtra(AppConstant.SPHERIFY_FLIP_VERTICAL, false);
 
         Uri imageUri = Uri.parse(intent.getStringExtra(AppConstant.SPHERIFY_IMAGE_PATH));
         imagePath = AppFunctions.getRealPathFromURI(imageUri, getContentResolver());
 
         spherify = new Spherify(this, topMargin, footMargin, smoothValue);
         bitmap = AppFunctions.loadImage(imagePath, getApplicationContext(), true);
+        if(flipVertical)
+            bitmap = AppFunctions.flipVertically(bitmap);
 
         putNotification();
         spherifyIt();

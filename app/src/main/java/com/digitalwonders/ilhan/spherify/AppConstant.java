@@ -22,6 +22,7 @@ public class AppConstant {
     public static final String SPHERIFY_TOP_MARGIN = "com.digitalwonders.ilhan.spherify.TOP_MARGIN";
     public static final String SPHERIFY_FOOT_MARGIN = "com.digitalwonders.ilhan.spherify.FOOT_MARGIN";
     public static final String SPHERIFY_SMOOTH_VALUE = "com.digitalwonders.ilhan.spherify.SMOOTH_VALUE";
+    public static final String SPHERIFY_FLIP_VERTICAL = "com.digitalwonders.ilhan.spherify.FLIP_VERTICAL";
 
     public static final String VIEW_X = "VIEW_X";
     public static final String VIEW_Y = "VIEW_Y";

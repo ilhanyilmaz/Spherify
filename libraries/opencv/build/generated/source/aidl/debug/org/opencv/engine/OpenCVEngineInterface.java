@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/ilhan/Projects/android_/Spherify/libraries/opencv/src/org/opencv/engine/OpenCVEngineInterface.aidl
+ * Original file: /home/ilhan/Projects/android/Spherify/libraries/opencv/src/org/opencv/engine/OpenCVEngineInterface.aidl
  */
 package org.opencv.engine;
 /**

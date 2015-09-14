@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/ilhan/Projects/android_/Spherify/libraries/opencv/src/main/assets"/></dataSet><dataSet config="debug"><source path="/home/ilhan/Projects/android_/Spherify/libraries/opencv/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/ilhan/Projects/android/Spherify/libraries/opencv/src/main/assets"/></dataSet><dataSet config="debug"><source path="/home/ilhan/Projects/android/Spherify/libraries/opencv/src/debug/assets"/></dataSet></merger>

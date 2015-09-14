@@ -1,6 +1,8 @@
 package com.digitalwonders.ilhan.spherify;
 
 import android.app.NotificationManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -107,6 +109,9 @@ public class DisplayActivity extends ActionBarActivity implements RotationGestur
         spherify.saveShareFile(-rotateValue, cropEdges);
         initShareIntent();
         finish();
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", getResources().getText(R.string.share_caption));
+        clipboard.setPrimaryClip(clip);
         startActivity(Intent.createChooser(shareIntent, "Share to"));
     }
 

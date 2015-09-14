@@ -6,6 +6,7 @@
     <string name="menu_item_delete">Sil</string>
     <string name="menu_item_share">Paylaş</string>
     <string name="menu_item_new">Yeni Yarat</string>
+    <string name="menu_item_rotate">Çevir</string>
     <string name="menu_item_help">Yardım</string>
 
     <string name="share_caption">Spherify\'la yaratılmıştır! #spherify</string>
@@ -19,7 +20,8 @@
     <string name="edit_activity_tip2">İpucu 2: Yumuşatma ayarıyla sol ve sağ kenarlar arasında yumuşak bir geçiş sağlayabilirsiniz.\n</string>
 
     <string name="display_activity_checkBox">Kenarları kes</string>
-    <string name="display_activity_tip1">\İpucu: Görüntüyü iki parmağınızla döndürebilirsiniz.\n</string>
+    <string name="display_activity_tip1">\nİpucu 1: Görüntüyü iki parmağınızla döndürebilirsiniz.</string>
+    <string name="display_activity_tip2">İpucu 2: #Spherify hashtagi ile yapacağınız paylaşımlar Spherify hesabında yayınlanacaktır.</string>
 
     <string name="help_activity_html">
         \n\n\n
