@@ -7,24 +7,34 @@
     tools:context="com.digitalwonders.ilhan.spherify.HelpActivity"
     android:background="@color/white">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/help_lin_layout"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp">
-        <ImageButton
-            android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/bg" />
-    </LinearLayout>
+            android:id="@+id/help_lin_layout">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/video" />
+        </LinearLayout>
 
-    <TextView android:text="@string/help_activity_html" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:elevation="5dp"
-        android:id="@+id/textView"
-        android:layout_below="@+id/help_lin_layout" />
+            <TextView android:text="@string/help_activity_html"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                android:id="@+id/textView"
+                 />
+    </LinearLayout>
+    </ScrollView>
+
 
     <!--ImageView
         android:layout_width="wrap_content"

@@ -51,6 +51,8 @@ public class EditActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         init();
     }
 
+
+
     private void init(){
 
         seekBarSmooth = (SeekBar) findViewById(R.id.seekBarSmooth);
@@ -69,9 +71,11 @@ public class EditActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         bitmapUri = Uri.parse(intent.getStringExtra(AppConstant.SPHERIFY_IMAGE_PATH));
         imagePath = AppFunctions.getRealPathFromURI(bitmapUri, getContentResolver());
 
-        while(imagePath.contains("%20")) {
+
+        imagePath = AppFunctions.fixPath(imagePath);
+        /*while(imagePath.contains("%20")) {
             imagePath = imagePath.substring(0, imagePath.indexOf("%20")) + " " + imagePath.substring(imagePath.indexOf("%20")+3);
-        }
+        }*/
         imageView = (ImageView) findViewById(R.id.imageView);
 
         Button spherifyButton = (Button) findViewById(R.id.buttonSpherify);
@@ -128,7 +132,7 @@ public class EditActivity extends ActionBarActivity implements SeekBar.OnSeekBar
         if(bitmap != null)
             displayBitmap(bitmap);
         else {
-            AppFunctions.showToast(getApplicationContext(), "Image size is exceeding 4096x4096");
+            AppFunctions.showToast(getApplicationContext(), "Couldn't load image!");
             finish();
         }
 

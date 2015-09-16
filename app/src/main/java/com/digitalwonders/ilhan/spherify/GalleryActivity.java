@@ -1,27 +1,19 @@
 package com.digitalwonders.ilhan.spherify;
 
 import java.util.ArrayList;
-
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import org.opencv.android.OpenCVLoader;
 

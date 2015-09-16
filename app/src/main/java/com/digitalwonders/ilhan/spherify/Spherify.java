@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 
+import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -256,6 +257,12 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
     public Bitmap spherifyIt(Bitmap bitmap) {
 
         int insideCircleOutRadius;
+
+        if (!OpenCVLoader.initDebug()) {
+            // Handle initialization error
+            AppFunctions.showToast(activity.getApplicationContext(), "OpenGL initialization error!");
+            activity.finish();
+        }
 
         if(srcImage == null) {
             srcImage = new Mat();

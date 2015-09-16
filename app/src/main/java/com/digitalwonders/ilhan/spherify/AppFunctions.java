@@ -15,6 +15,16 @@ public class AppFunctions {
     public AppFunctions() {
 
     }
+
+    public static String fixPath(String path) {
+
+        String prefix, suffix;
+        prefix = path.substring(0, path.lastIndexOf("/"));
+        suffix = path.substring(path.lastIndexOf("/"));
+        prefix = prefix.replaceAll("%20"," ");
+        return prefix.concat(suffix);
+    }
+
     public static String getRealPathFromURI(Uri contentUri, ContentResolver contentResolver) {
 
         String res = null;

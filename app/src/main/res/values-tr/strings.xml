@@ -15,16 +15,15 @@
     <string name="title_activity_gallery">Galeri</string>
     <string name="title_activity_help">Yardım</string>
 
-    <string name="spherifying_text">Yuvarlatılıyor! Lütfen bekleyiniz&#8230;</string>
     <string name="edit_activity_tip1">İpucu 1: Yukarı ve aşağıda bulunan perdeleri sürükleyerek, odaklanmak istediğiniz alanı ayarlayın.\n</string>
     <string name="edit_activity_tip2">İpucu 2: Yumuşatma ayarıyla sol ve sağ kenarlar arasında yumuşak bir geçiş sağlayabilirsiniz.\n</string>
 
     <string name="display_activity_checkBox">Kenarları kes</string>
-    <string name="display_activity_tip1">\nİpucu 1: Görüntüyü iki parmağınızla döndürebilirsiniz.</string>
+    <string name="display_activity_tip1">\nİpucu 1: Görüntüyü tek parmağınızla döndürebilirsiniz.</string>
     <string name="display_activity_tip2">İpucu 2: #Spherify hashtagi ile yapacağınız paylaşımlar Spherify hesabında yayınlanacaktır.</string>
 
     <string name="help_activity_html">
-        \n\n\n
+        \n\n
         <big>Dikkat edilmesi gereken konular:</big>\n\n
         Başlamadan önce, galerinizde yuvarlatmaya uygun bir fotoğraf emin olun.\n\n
         <b>Yuvarlatmaya uygun bir fotoğraf nasıl olmalı?</b>\n\n
@@ -32,9 +31,19 @@
         2-\u0009360<sup><small>o</small></sup> çekilmiş fotoğraf\n
         \n\n
         Kusursuz bir <b>Spherify</b> görüntüsü için, fotoğrafınızda şu şekilde olmalı:\n\n
-        1-\u0009Ufuk çizgileri aynı yükseklikte başlayıp bitmeli,\n
-        2-\u0009Zeminin dokusu homojen olmalı,\n
-        3-\u0009<u>Fotoğrafınızın </u> sol ve sağ kenarları birbiriyle örtüşmeli.
+        1-\u0009Yatay çizgiler (örn: ufuk çizgisi) aynı yükseklikte başlayıp bitmeli,\n
+        2-\u0009Zeminin dokusu (örn: çim, deniz, vs.) homojen olmalı,\n
+        3-\u0009<u>Fotoğrafınızın </u> sol ve sağ kenarları birbiriyle örtüşmeli.\n\n
     </string>
+    <string name="spherifying_ad_info">
+        <big>Reklam gösterilecek:</big>
+    </string>
+    <string name="spherifying_text">\n\nYuvarlatılıyor! Lütfen bekleyiniz&#8230;</string>
+
     <string name="transition_name">DisplayImageView</string>
+    <string name="video_link">https://www.youtube.com/playlist?list=PLYbN-TGbQ-zPd2y82n9LzMM35drcOpOhf</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7280301924249512/3905063386</string>
+    <string name="remaining">Kalan süre:</string>
+    <string name="minute">:</string>
+    <string name="second">s.</string>
 </resources>

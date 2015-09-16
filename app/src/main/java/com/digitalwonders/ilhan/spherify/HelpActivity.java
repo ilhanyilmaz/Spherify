@@ -19,7 +19,7 @@ public class HelpActivity extends ActionBarActivity {
         findViewById(R.id.imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.youtube.com/watch?v=CDb4h2I83ng")));
+                startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(getResources().getString(R.string.video_link))));
             }
         });
     }

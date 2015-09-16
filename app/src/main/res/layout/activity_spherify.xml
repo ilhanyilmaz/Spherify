@@ -9,11 +9,25 @@
     android:background="@color/white">
 
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg"
-        android:id="@+id/bg_image_view" />
+        android:textAlignment="center"
+        android:text="@string/spherifying_ad_info"
+        android:id="@+id/ad_info_view"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="5"
+        android:id="@+id/ad_info_timer"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ad_info_view"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +36,8 @@
         android:id="@+id/spherify_text_view"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/bg_image_view" />
+        android:layout_below="@+id/ad_info_timer" />
+
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"

@@ -15,25 +15,27 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import java.io.File;
 
-public class DisplayActivity extends ActionBarActivity implements RotationGestureDetector.OnRotationGestureListener, CompoundButton.OnCheckedChangeListener {
+public class DisplayActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener, View.OnTouchListener {
 
     private Spherify spherify;
     private Bitmap bitmap;
     private ImageView imageView;
     private int rotateValue = 0;
-    private RotationGestureDetector mRotationDetector;
+    private float viewRotation= 0f;
+    private double fingerRotation=0f;
+    private double newFingerRotation;
 
     private ShareActionProvider mShareActionProvider;
     private Intent shareIntent;
     private String mImagePath;
     private boolean cropEdges = true;
-    private float lastRotAngle=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,6 @@ public class DisplayActivity extends ActionBarActivity implements RotationGestur
         CheckBox cbCrop = (CheckBox)findViewById(R.id.cropCheckBox);
         cbCrop.setOnCheckedChangeListener(this);
 
-        mRotationDetector = new RotationGestureDetector(this);
         init();
     }
 
@@ -152,6 +153,8 @@ public class DisplayActivity extends ActionBarActivity implements RotationGestur
         imageView.setScaleX(spherify.getCropToFullRatio());
         imageView.setScaleY(spherify.getCropToFullRatio());
 
+        imageView.setOnTouchListener(this);
+
     }
 
     @Override
@@ -167,7 +170,7 @@ public class DisplayActivity extends ActionBarActivity implements RotationGestur
 
     @Override
     public void onCheckedChanged(CompoundButton b, boolean isChecked) {
-        if(isChecked) {
+        if (isChecked) {
             imageView.setScaleX(spherify.getCropToFullRatio());
             imageView.setScaleY(spherify.getCropToFullRatio());
             cropEdges = true;
@@ -209,31 +212,33 @@ public class DisplayActivity extends ActionBarActivity implements RotationGestur
         mNotificationManager.cancel(SpherifyActivity.NOTIFICATION_ID);
     }
 
+
     @Override
-    public boolean onTouchEvent(MotionEvent event){
-        if(event.getActionMasked() == MotionEvent.ACTION_UP) {
-            rotateValue -= lastRotAngle;
-            rotateValue = rotateValue % 360;
+    public boolean onTouch(View v, MotionEvent event) {
+
+        final float x = event.getX();
+        final float y = event.getY();
+
+        final float xc = imageView.getWidth()/2;
+        final float yc = imageView.getHeight()/2;
+
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                viewRotation = imageView.getRotation();
+                fingerRotation = Math.toDegrees(Math.atan2(x - xc, yc - y));
+                break;
+            case MotionEvent.ACTION_MOVE:
+                newFingerRotation = Math.toDegrees(Math.atan2(x - xc, yc - y));
+                imageView.setRotation((float)(viewRotation + newFingerRotation - fingerRotation));
+                break;
+            case MotionEvent.ACTION_UP:
+                fingerRotation = newFingerRotation = 0.0f;
+                rotateValue = (int)imageView.getRotation();
+                //rotateValue = rotateValue % 360;
+                break;
         }
-        mRotationDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
+
+        return true;
     }
-
-
-
-    @Override
-    public void OnRotation(RotationGestureDetector rotationDetector) {
-
-        lastRotAngle = rotationDetector.getAngle();
-        //displayBitmap(spherify.getRotatedBitmap(rotateValue + (int) lastRotAngle));
-
-        imageView.setRotation(rotateValue - (int) lastRotAngle);
-        //Log.d("RotationGestureDetector", "Rotation: " + Float.toString(angle));
-    }
-
-    /*@Override
-    public void onBackPressed() {
-        overridePendingTransition(R.transition.explode, R.transition.change_image_transform);
-        super.onBackPressed();
-    }*/
 }

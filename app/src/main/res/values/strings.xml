@@ -15,7 +15,7 @@
     <string name="title_activity_gallery">Gallery</string>
     <string name="title_activity_help">HowTo</string>
 
-    <string name="spherifying_text">Spherifying! Please wait&#8230;</string>
+
     <string name="edit_activity_tip1">Tip 1: Adjust mask layers by dragging them to top and bottom of the interest points.\n</string>
     <string name="edit_activity_tip2">Tip 2: Smooth to soften transition between left and right side of the image.\n</string>
 
@@ -36,5 +36,15 @@
         2-\u0009A homogeneous texture for the terrain,\n
         3-\u0009<u>Seamless</u> left and right edges.
     </string>
+    <string name="spherifying_ad_info">
+        <big>Ad will be shown in:</big>
+    </string>
+    <string name="spherifying_text">\n\nSpherifying! Please wait&#8230;</string>
+
     <string name="transition_name">DisplayImageView</string>
+    <string name="video_link">https://www.youtube.com/playlist?list=PLYbN-TGbQ-zM60fFyUrz_n-Ia3tX4-_4x</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7280301924249512/3905063386</string>
+    <string name="remaining">Remaining time:</string>
+    <string name="minute">min.</string>
+    <string name="second">sec.</string>
 </resources>
