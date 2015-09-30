@@ -233,6 +233,8 @@ public class SpherifyActivity extends Activity {
     private String getRemainingTimeStr() {
         long timePassed = getMillis() - startTime;
         int progress = progressBar.getProgress();
+        if(progress == 0)
+            return "...";
         long totalTime = timePassed * 100 / progress;
         long remTime = (totalTime - timePassed)/1000;
         int remMin = (int) remTime / 60;

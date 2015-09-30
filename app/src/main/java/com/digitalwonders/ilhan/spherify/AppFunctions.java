@@ -19,10 +19,13 @@ public class AppFunctions {
     public static String fixPath(String path) {
 
         String prefix, suffix;
-        prefix = path.substring(0, path.lastIndexOf("/"));
-        suffix = path.substring(path.lastIndexOf("/"));
-        prefix = prefix.replaceAll("%20"," ");
-        return prefix.concat(suffix);
+        if(path.lastIndexOf("/")>0) {
+            prefix = path.substring(0, path.lastIndexOf("/"));
+            suffix = path.substring(path.lastIndexOf("/"));
+            prefix = prefix.replaceAll("%20", " ");
+            return prefix.concat(suffix);
+        }
+        return path;
     }
 
     public static String getRealPathFromURI(Uri contentUri, ContentResolver contentResolver) {

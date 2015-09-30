@@ -47,4 +47,8 @@
     <string name="remaining">Remaining time:</string>
     <string name="minute">min.</string>
     <string name="second">sec.</string>
+    <string name="title_activity_feed">FeedActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.util.Log;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.Utils;
@@ -35,14 +36,13 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
 
     private double scale;
     private int offset;
-    private int progress = 0;
+    private float progressPerc = 0.0f;
 
     private SpherifyActivity activity;
     private File saveFile;
     private String mSaveFilePath;
 
     public Spherify() {
-
         genImageSize= (int)(croppedImageSize/ Math.sin(Math.PI/4.0));
     }
 
@@ -59,7 +59,8 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
     }
 
     protected Bitmap doInBackground(Bitmap... bitmaps) {
-        return spherifyIt(bitmaps[0]);
+        prepareSpherify(bitmaps[0]);
+        return spherifyIt();
     }
 
     protected void onProgressUpdate(Integer... progress) {
@@ -216,7 +217,7 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
     private void seamlessEdges(Mat image) {
         int imageHeight = image.height();
         int imageWidth = image.width();
-        double smoothRange = smoothValue * (4096f/imageWidth);
+        double smoothRange = smoothValue * (imageWidth/2000f);
         double smoothRangeHalf = smoothRange/2;
         double pixel1[];
         double pixel2[];
@@ -253,10 +254,10 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
         halfGenImageSize = genImageSize/2;
     }
 
-
-    public Bitmap spherifyIt(Bitmap bitmap) {
+    private void prepareSpherify(Bitmap bitmap) {
 
         int insideCircleOutRadius;
+        int topY, footY, withinHeight;
 
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
@@ -276,86 +277,101 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
         }
 
         Utils.bitmapToMat(bitmap, srcImage);
-
         //cropImage();
-
         seamlessEdges(srcImage);
-        int srcWidth = srcImage.cols();
-        int srcHeight = srcImage.rows();
-
-        /*if(height / 2 > imageSize)
-            imageSize = height / 2;
-        if(imageSize > maxSize)
-            imageSize = maxSize;
-
-        radius=imageSize/2;*/
-
-
+        mSrcWidth = srcImage.cols();
+        mSrcHeight = srcImage.rows();
 
         halfGenImageSize = genImageSize/2;
+        spherifiedImage = new Mat();
+        spherifiedImage.create(genImageSize, genImageSize, CvType.CV_8UC4);
 
-        Mat newImg = new Mat();
-        newImg.create(genImageSize, genImageSize, CvType.CV_8UC4);
-        int i=0, j=0;
-        Point angleDist;
-        Point uv;
-        Point xy;
-        int x,y;
-        //insideCircleOutRadius = (int)(footMargin*croppedImageSize/2);
         insideCircleOutRadius = (int)(genImageSize/12);
-        //outsideCircleRadius = (int)(1+topMargin)*croppedImageSize;
-        double distance;
-        double color[];
 
-        int topY, footY, withinHeight;
-        double ratio;
-
-        topY= (int)(srcHeight*(topMargin));
-        footY= (int)(srcHeight*(footMargin));
+        topY= (int)(mSrcHeight*(topMargin));
+        footY= (int)(mSrcHeight*(footMargin));
         withinHeight = topY-footY;
         scale = withinHeight/((double)(croppedImageSize/2-insideCircleOutRadius));
         offset = (int)(footY - scale*insideCircleOutRadius);
+        numProcesses = Runtime.getRuntime().availableProcessors();
+        if(numProcesses<3)
+            numProcesses = 1;
+        else
+            numProcesses = 3;
 
-        for(j=0; j<genImageSize; j++) {
-            progress = j/genImageSize*100;
-            publishProgress((int) ((j /(float)genImageSize)*100));
-            for(i=0; i<genImageSize; i++) {
-                angleDist = getAngleDist(i, j);
-                uv = getUniformCoordinates(angleDist.x, angleDist.y);
+    }
 
-                if(uv.y < 0)
-                    uv.y = -uv.y;
-                else if(uv.y > 1)
-                    uv.y = 2-uv.y;
-                x = (int) (uv.x * srcWidth);
-                y = (int) (srcHeight - uv.y * srcHeight - 1);
-                newImg.put(j, i, srcImage.get(y, x));
+    private int mSrcWidth;
+    private int mSrcHeight;
+    private int mProcessProgress[];
+    private int numProcesses;
 
-            }
+    public Bitmap spherifyIt() {
+
+
+
+
+        mProcessProgress = new int[numProcesses];
+        Log.i("Spherify", "no processes: " + numProcesses);
+
+        for(int p=0; p<numProcesses; p++) {
+            mProcessProgress[p] = 0;
+            new Thread(new SpherifyTask(p)).start();
         }
 
-        spherifiedImage = newImg;
+        while(spherifyProgress()<100.0f);
 
         //newImg = rotateImage(newImg, 270);
 
         return convertToBitmap(spherifiedImage);
     }
 
-    /*public boolean loadImage(String filepath) {
-        srcImage = Highgui.imread(filepath);
-        if(!srcImage.empty() )
-        return !srcImage.empty();
+    private class SpherifyTask implements Runnable {
 
-    }*/
+        private int mIndex;
+
+        public SpherifyTask(int index) {
+            mIndex = index;
+        }
+
+        public void run() {
+
+            int i=0, j=0;
+            Point angleDist;
+            Point uv;
+            int x,y;
+            int jLower = mIndex * genImageSize/numProcesses;
+            int jUpper = (mIndex+1) * genImageSize/numProcesses;
+            for(j=jLower; j<jUpper; j++) {
+                mProcessProgress[mIndex]++;
+                publishProgress((int) (progressPerc));
+                for(i=0; i<genImageSize; i++) {
+                    angleDist = getAngleDist(i, j);
+                    uv = getUniformCoordinates(angleDist.x, angleDist.y);
+
+                    if(uv.y < 0)
+                        uv.y = -uv.y;
+                    else if(uv.y > 1)
+                        uv.y = 2-uv.y;
+                    x = (int) (uv.x * mSrcWidth);
+                    y = (int) (mSrcHeight - uv.y * mSrcHeight - 1);
+                    spherifiedImage.put(j, i, srcImage.get(y, x));
+
+                }
+            }
+        }
+    }
+
+    private float spherifyProgress() {
+        int totalProgress = 0;
+        for(int i=0; i<numProcesses; i++) {
+            totalProgress += mProcessProgress[i];
+        }
+        progressPerc = totalProgress/(float)genImageSize*100.0f;
+        return progressPerc;
+    }
+
     private Bitmap convertToBitmap(Mat img) {
-        // convert to bitmap:
-        /*if(img == null)
-            return null;
-        Mat tmp = new Mat();
-        Imgproc.cvtColor(img, tmp, Imgproc.COLOR_BGR2RGB);
-
-        Bitmap bm = Bitmap.createBitmap(tmp.cols(), tmp.rows(),Bitmap.Config.ARGB_8888);
-        Utils.matToBitmap(tmp, bm);*/
         Bitmap bm = Bitmap.createBitmap(img.cols(), img.rows(),Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(img, bm);
         return bm;
@@ -368,7 +384,7 @@ public class Spherify extends AsyncTask<Bitmap, Integer, Bitmap> {
     }
 
     public int getProgress() {
-        return progress;
+        return (int) progressPerc;
     }
 
     public void destroy(){
